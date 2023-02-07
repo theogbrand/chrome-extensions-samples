@@ -28,9 +28,12 @@ if (article) {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
    */
   const wordMatchRegExp = /[^\s]+/g;
-  const words = text.matchAll(wordMatchRegExp);
   // matchAll returns an iterator, convert to array to get word count
+  const words = text.matchAll(wordMatchRegExp);
+  // console log first 5 words in words array
+  // console.log([...words].slice(0, 5));
   const wordCount = [...words].length;
+  // adult readers around 200-300 words per minute
   const readingTime = Math.round(wordCount / 200);
   const badge = document.createElement("p");
   // Use the same styling as the publish information in an article's header
@@ -39,9 +42,14 @@ if (article) {
 
   // Support for API reference docs
   const heading = article.querySelector("h1");
+  // console.log(heading);
+
   // Support for article docs with date
+  // Selects the parent node of the time element if exists
   const date = article.querySelector("time")?.parentNode;
+  // console.log(date);
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
+  // if date is null, use heading
   (date ?? heading).insertAdjacentElement("afterend", badge);
 }
